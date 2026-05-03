@@ -350,9 +350,8 @@ else:
     st.caption("These files live next to `tools/` in your clone.")
 
     docs = [
-        ("START_HERE.md", "Onboarding and quick start"),
-        ("MASTER_INDEX.md", "Full index and master prompt"),
-        ("README.md", "Project overview"),
+        ("README.md", "Main documentation and quick start"),
+        ("MASTER_INDEX.md", "Full skill index, kill chains, master prompt"),
     ]
     for fname, desc in docs:
         p = REDFORGE_ROOT / fname
