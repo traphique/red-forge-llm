@@ -1,4 +1,2 @@
-# RedForge tools (CLI, semantic search, optional UI)
-numpy>=1.24
-scikit-learn>=1.3
+# Legacy Streamlit UI only. The CLI and SQLite FTS5 search use the standard library.
 streamlit>=1.28

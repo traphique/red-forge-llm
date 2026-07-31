@@ -158,7 +158,7 @@ def interactive_mode():
         print(f"\n{Colors.BOLD}Main Menu:{Colors.END}")
         print("  1. List all skills")
         print("  2. Keyword search")
-        print("  3. Semantic search (natural language)")
+        print("  3. Local relevance search (natural language)")
         print("  4. Load a skill (show command)")
         print("  5. Show recommended combinations")
         print("  6. Exit")

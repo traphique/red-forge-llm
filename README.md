@@ -68,6 +68,37 @@ python3 tools/semantic_search.py "Active Directory privilege escalation"
 streamlit run tools/redforge_ui.py
 ```
 
+**Native desktop app (in progress):**
+
+```bash
+cd redforge
+python3.11 -m venv .venv
+.venv/bin/python -m pip install -e ".[desktop]"
+.venv/bin/python -m redforge_app
+```
+
+The desktop app is fully local and includes skill browsing, SQLite FTS5/BM25
+search, Markdown preview, clipboard actions, export, and a simple 2–3 skill
+purple-team prompt chain with full Markdown and compact operator-brief exports.
+The last five chains are saved locally as JSON, one can be pinned against
+eviction, and the status bar tracks the last loaded chain. A separate Skill
+diff tab compares library skills, saved chains, or external Markdown with
+changed-section filtering, unified,
+side-by-side, and single-section views. Either source can be the baseline, and
+copied diffs can be wrapped for direct Markdown pasting. Build and smoke-test a
+native bundle with:
+
+```bash
+python3 tools/build_desktop.py
+```
+
+The build also creates a shareable ZIP, a `.sha256` checksum, and `VERIFY.txt`
+with the exact one-line verification command.
+
+See the
+[desktop rewrite roadmap](docs/DESKTOP_ROADMAP.md) for packaging and planned
+workbench/session features.
+
 **Use a skill as a system prompt:**
 
 ```bash

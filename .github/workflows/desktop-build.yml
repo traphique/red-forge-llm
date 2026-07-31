@@ -1,0 +1,54 @@
+name: Desktop build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "redforge/redforge_app/**"
+      - "redforge/packaging/**"
+      - "redforge/pyproject.toml"
+      - ".github/workflows/desktop-build.yml"
+  pull_request:
+    paths:
+      - "redforge/redforge_app/**"
+      - "redforge/packaging/**"
+      - "redforge/pyproject.toml"
+      - ".github/workflows/desktop-build.yml"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            artifact: RedForge-macOS
+          - os: windows-latest
+            artifact: RedForge-Windows
+          - os: ubuntu-latest
+            artifact: RedForge-Linux
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: redforge
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: redforge/pyproject.toml
+      - name: Install desktop and build dependencies
+        run: python -m pip install -e ".[desktop,build]"
+      - name: Test shared core
+        run: python -m unittest discover -s tests -v
+      - name: Build native bundle
+        run: python tools/build_desktop.py
+      - name: Upload unsigned bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.artifact }}
+          path: redforge/dist/
+          if-no-files-found: error

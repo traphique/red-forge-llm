@@ -140,7 +140,7 @@ page = st.sidebar.radio(
     "Section",
     [
         "Dashboard",
-        "Semantic search",
+        "Local search",
         "All skills",
         "Quick actions",
         "Documentation",
@@ -226,9 +226,9 @@ if page == "Dashboard":
                 else:
                     st.caption("Use the copy control on the code block (Streamlit) or select the text.")
 
-# --- Semantic search ---
-elif page == "Semantic search":
-    st.caption("Plain-English search via the offline semantic index.")
+# --- Local search ---
+elif page == "Local search":
+    st.caption("Plain-English relevance search via the offline SQLite FTS5/BM25 index.")
 
     query = st.text_input(
         "What do you need help with?",
@@ -333,7 +333,7 @@ elif page == "Quick actions":
             ok = copy_if_supported(cli)
             _toast("Copied" if ok else "Select and copy the command above", icon="✅" if ok else "📋")
 
-        st.markdown("**Semantic search (example)**")
+        st.markdown("**Local search (example)**")
         st.code(sem, language="bash")
         if st.button("Copy search example", key="qa_sem"):
             if copy_if_supported(sem):
@@ -365,7 +365,7 @@ else:
     st.markdown(
         """
 - Skills are plain `SKILL.md` trees — load into your LLM workflow as documented.
-- Semantic search and CLI assume your shell cwd is the **redforge** folder.
+- Local search and CLI assume your shell cwd is the **redforge** folder.
 - Everything runs locally; no cloud required for this UI.
 """
     )

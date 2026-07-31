@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "redforge-desktop"
+version = "0.1.0"
+description = "Offline desktop browser for the RedForge LLM skill library"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "RedForge contributors" }]
+dependencies = []
+
+[project.optional-dependencies]
+desktop = ["PySide6-Essentials>=6.8,<7"]
+build = ["PyInstaller>=6.10,<7"]
+legacy-ui = ["streamlit>=1.28"]
+dev = ["pytest>=8", "ruff>=0.9"]
+
+[project.scripts]
+redforge-desktop = "redforge_app.desktop:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["redforge_app*"]
+
+[tool.pyside6-project]
+files = [
+    "redforge_app/__init__.py",
+    "redforge_app/__main__.py",
+    "redforge_app/desktop.py",
+    "redforge_app/diffing.py",
+    "redforge_app/library.py",
+    "redforge_app/search.py",
+    "redforge_app/session.py",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
